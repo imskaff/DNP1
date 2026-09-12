@@ -7,12 +7,21 @@ public class CommentInMemoryRepository : ICommentRepository
 {
     private List<Comment> comments;
 
+    public CommentInMemoryRepository()
+    {
+        comments = new List<Comment>
+        {
+            new Comment("Hi everyone, glad to be here.", 1, 2) { CommentId = 1 },
+            new Comment("await unwraps the value inside the Task.", 2, 1) { CommentId = 2 },
+            new Comment("That finally made it click, thanks.", 2, 3) { CommentId = 3 },
+            new Comment("Upgrade was painless for me.", 3, 2) { CommentId = 4 }
+        };
+    }
+
     public Task<Comment> AddAsync(Comment comment)
     {
-        // not sure if its correct
-        // i'd guess it needs PostId as well?
         comment.CommentId = comments.Any()
-            ? comments.Max(p => p.CommentId) + 1
+            ? comments.Max(c => c.CommentId) + 1
             : 1;
         comments.Add(comment);
         return Task.FromResult(comment);
@@ -44,6 +53,18 @@ public class CommentInMemoryRepository : ICommentRepository
 
         comments.Remove(commentToRemove);
         return Task.CompletedTask;
+    }
+    
+    public Task<Comment> GetSingleAsync(int id)
+    {
+        Comment? comment = comments.SingleOrDefault(c => c.CommentId == id);
+        if (comment is null)
+        {
+            throw new InvalidOperationException(
+                $"Comment with ID '{id}' not found");
+        }
+
+        return Task.FromResult(comment);
     }
     
     public IQueryable<Comment> GetMany()
