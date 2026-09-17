@@ -4,3 +4,10 @@ obj/
 riderModule.iml
 /_ReSharper.Caches/
 .idea/
+# Rider MCP server config (machine-local)
+.mcp.json
+
+# Runtime data files produced by the CLI
+users.json
+posts.json
+comments.json
