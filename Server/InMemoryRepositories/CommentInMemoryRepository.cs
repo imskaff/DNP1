@@ -33,7 +33,7 @@ public class CommentInMemoryRepository : ICommentRepository
         if (existingComment is null)
         {
             throw new InvalidOperationException(
-                $"Post with ID '{comment.CommentId}' not found");
+                $"Comment with ID '{comment.CommentId}' not found");
         }
 
         comments.Remove(existingComment);
@@ -48,7 +48,7 @@ public class CommentInMemoryRepository : ICommentRepository
         if (commentToRemove is null)
         {
             throw new InvalidOperationException(
-                $"Post with ID '{id}' not found");
+                $"Comment with ID '{id}' not found");
         }
 
         comments.Remove(commentToRemove);
