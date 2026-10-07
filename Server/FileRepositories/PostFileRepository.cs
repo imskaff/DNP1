@@ -31,7 +31,7 @@ public class PostFileRepository : IPostRepository
         Post? existingPost = posts.SingleOrDefault(x => x.PostId == post.PostId);
         if (existingPost == null)
         {
-            throw new InvalidOperationException(
+            throw new NotFoundException(
                 $"Post with id '{post.PostId}' not found");
         }
         
@@ -46,7 +46,7 @@ public class PostFileRepository : IPostRepository
         Post? postToRemove = posts.SingleOrDefault(x => x.PostId == postId);
         if (postToRemove == null)
         {
-            throw new InvalidOperationException(
+            throw new NotFoundException(
                 $"Post with ID '{postId}' not found");
         }
         
@@ -60,7 +60,7 @@ public class PostFileRepository : IPostRepository
         Post? post = posts.SingleOrDefault(x => x.PostId == postId);
         if (post is null)
         {
-            throw new InvalidOperationException(
+            throw new NotFoundException(
                 $"Post with ID '{postId}' not found");
         }
         return post;
